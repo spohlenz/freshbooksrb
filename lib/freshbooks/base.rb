@@ -35,7 +35,8 @@ module FreshBooks
     end
     
     def self.get(id)
-      new(call_api_with_id('get', id)[prefix])
+      result = call_api_with_id('get', id)
+      new(result[prefix]) if result[prefix]
     end
     
     def self.delete(id)
@@ -43,7 +44,12 @@ module FreshBooks
     end
     
     def self.list(params={})
-      call_api('list', params)["#{prefix.pluralize}"][prefix].map { |p| new(p) }
+      result = call_api('list', params)
+      if result[prefix.pluralize] && result[prefix]
+        result[prefix.pluralize][prefix].map { |p| new(p) }
+      else
+        []
+      end
     end
     
     def self.has_many(model)
