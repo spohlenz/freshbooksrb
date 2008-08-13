@@ -51,7 +51,7 @@ module FreshBooks
       if result && result.is_a?(Array)
         result.map { |p| new(p) }
       elsif result
-        new(result)
+        [new(result)]
       else
         []
       end
