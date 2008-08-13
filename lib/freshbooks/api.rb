@@ -1,6 +1,5 @@
 require 'httparty'
 require 'builder'
-require 'prettyprint'
 
 module FreshBooks
   class APIError < Exception; end
