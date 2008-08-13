@@ -45,7 +45,7 @@ module FreshBooks
     
     def self.list(params={})
       result = call_api('list', params)
-      if result[prefix.pluralize] && result[prefix]
+      if result[prefix.pluralize] && result[prefix.pluralize][prefix]
         result[prefix.pluralize][prefix].map { |p| new(p) }
       else
         []
