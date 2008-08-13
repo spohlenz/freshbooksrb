@@ -31,19 +31,19 @@ module FreshBooks
     has_many :payments
     belongs_to :client
     
-    def sendByEmail
-      self.class.sendByEmail(invoice_id)
+    def send_by_email
+      self.class.send_by_email(invoice_id)
     end
     
-    def sendBySnailMail
-      self.class.sendBySnailMail(invoice_id)
+    def send_by_snail_mail
+      self.class.send_by_snail_mail(invoice_id)
     end
     
-    def self.sendByEmail(id)
+    def self.send_by_email(id)
       call_api_with_id('sendByEmail', id)
     end
     
-    def self.sendBySnailMail(id)
+    def self.send_by_snail_mail(id)
       call_api_with_id('sendBySnailMail', id)
     end
   end
@@ -55,11 +55,11 @@ module FreshBooks
     
     belongs_to :client
     
-    def sendByEmail
-      self.class.sendByEmail(invoice_id)
+    def send_by_email
+      self.class.send_by_email(invoice_id)
     end
     
-    def self.sendByEmail(id)
+    def self.send_by_email(id)
       call_api_with_id('sendByEmail', id)
     end
   end
