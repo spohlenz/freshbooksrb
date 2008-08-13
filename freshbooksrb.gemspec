@@ -11,9 +11,9 @@ Gem::Specification.new do |s|
   
   s.files    = ["lib/freshbooks/base.rb", 
 		            "lib/freshbooks/api.rb", 
-		            "lib/freshbooks.rb"]
+		            "lib/freshbooksrb.rb"]
 	
-	s.add_dependency("builder", "> 2.1.2")
-  s.add_dependency("activesupport", "> 2.1.0")
-  s.add_dependency("httparty", "> 0.1.2")
+	s.add_dependency("builder", ">= 2.1.2")
+  s.add_dependency("activesupport", ">= 2.1.0")
+  s.add_dependency("httparty", ">= 0.1.2")
 end
