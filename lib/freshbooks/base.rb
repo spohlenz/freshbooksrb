@@ -119,7 +119,7 @@ module FreshBooks
     def self.convert_to_array_of_objects(result)
       if result && result.is_a?(Array)
         result.map { |p| new(p) }
-      elsif list
+      elsif result
         [new(result)]
       else
         []
