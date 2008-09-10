@@ -53,7 +53,7 @@ module FreshBooks
         extract_list_result(call_api('list', params))
       else
         # Fetch all results by looping through pages
-        returning [] do |result|
+        returning [] do |all|
           params[:page] = 1
           page = extract_list_result(call_api('list', params))
           all << page
@@ -125,9 +125,9 @@ module FreshBooks
         []
       end
     end
-  end
-  
-  def self.extract_list_result(api_result)
-    convert_to_array_of_objects(api_result.andand[prefix.pluralize].andand[prefix])
+    
+    def self.extract_list_result(api_result)
+      convert_to_array_of_objects(api_result.andand[prefix.pluralize].andand[prefix])
+    end
   end
 end
