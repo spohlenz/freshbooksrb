@@ -46,14 +46,23 @@ module FreshBooks
     end
     
     def self.list(params={})
-      result = call_api('list', params).andand[prefix.pluralize].andand[prefix]
+      params[:per_page] ||= 100
       
-      if result && result.is_a?(Array)
-        result.map { |p| new(p) }
-      elsif result
-        [new(result)]
+      if params[:per_page] < 100
+        # Listing less than one page
+        extract_list_result(call_api('list', params))
       else
-        []
+        # Fetch all results by looping through pages
+        returning [] do |result|
+          params[:page] = 1
+          page = extract_list_result(call_api('list', params))
+          all << page
+          while page.size == 100
+            params[:page] += 1
+            page = extract_list_result(call_api('list', params))
+            all << page
+          end
+        end
       end
     end
     
@@ -106,5 +115,19 @@ module FreshBooks
     def self.id_field
       "#{prefix}_id"
     end
+    
+    def self.convert_to_array_of_objects(result)
+      if result && result.is_a?(Array)
+        result.map { |p| new(p) }
+      elsif list
+        [new(result)]
+      else
+        []
+      end
+    end
+  end
+  
+  def self.extract_list_result(api_result)
+    convert_to_array_of_objects(api_result.andand[prefix.pluralize].andand[prefix])
   end
 end
