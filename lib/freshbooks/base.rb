@@ -56,11 +56,11 @@ module FreshBooks
         returning [] do |all|
           params[:page] = 1
           page = extract_list_result(call_api('list', params))
-          all += page
+          all.concat(page)
           while page.size == 100
             params[:page] += 1
             page = extract_list_result(call_api('list', params))
-            all += page
+            all.concat(page)
           end
         end
       end
